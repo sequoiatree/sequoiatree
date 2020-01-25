@@ -1,0 +1,11 @@
+@import 'colors';
+
+$accent-width: 2px;
+
+@mixin clickable() {
+  color: black;
+  background: $secondary-color;
+  border: solid $accent-width $primary-color;
+  border-radius: 100vw;
+  transition: 1.0s;
+}

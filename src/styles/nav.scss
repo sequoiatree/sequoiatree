@@ -1,3 +1,16 @@
-.nav-break.active {
-  flex-basis: 100%;
+@import 'clickable';
+@import 'colors';
+
+$nav-breakpoint: 768px;
+
+.nav-pills .nav-link {
+  @include clickable();
+  @media only screen and (max-width: $nav-breakpoint) {
+    min-width: 33.3%;
+  }
+}
+
+.nav-pills .nav-link:hover, .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  @include clickable();
+  background: white;
 }

@@ -10,10 +10,10 @@
   <div class="sticky-top bg-white">
     <hr/>
     <div class="page-content mx-auto">
-      <nav class="nav nav-pills nav-justified" id="{{ nav_id }}" role="tablist">
+      <nav class="nav nav-pills nav-justified align-items-stretch" id="{{ nav_id }}" role="tablist">
         {% for i in range(options|length) %}
           {% set option_id, option_label, option_content = options[i] %}
-          <a class="nav-item nav-link align-self-center text-uppercase font-family-serif {% if i == 0 %} active {% endif %}" id="{{ nav_id }}-option-{{ option_id }}" data-toggle="pill" href="#{{ option_id }}" role="tab" aria-controls="{{ option_id }}" aria-selected="{% if i == 0 %} true {% else %} false {% endif %}">{{ option_label }}</a>
+          <a class="nav-item nav-link d-flex justify-content-center align-items-center m-1 text-uppercase font-family-serif {% if i == 0 %} active {% endif %}" id="{{ nav_id }}-option-{{ option_id }}" data-toggle="pill" href="#{{ option_id }}" role="tab" aria-controls="{{ option_id }}" aria-selected="{% if i == 0 %} true {% else %} false {% endif %}">{{ option_label }}</a>
         {% endfor %}
       </nav>
     </div>
