@@ -1,0 +1,34 @@
+{% import 'utils.html' as utils %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sequoia Tree</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}?v=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arapey&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap">
+    {{ utils.include_css('main') }}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <body class="font-family-sans-serif font-size-paragraph">
+    <h1 class="text-uppercase text-center font-family-serif font-size-title">Sequoia</h1>
+    <div class="d-flex flex-row flex-wrap justify-content-center">
+      <h4 class="px-2 text-uppercase font-family-serif">Teacher</h4>
+      <h4 class="px-2 text-uppercase font-family-serif">Researcher</h4>
+      <h4 class="px-2 text-uppercase font-family-serif">Activist</h4>
+    </div>
+    {{ utils.nav('index-nav', nav_options) }}
+    <div class="page-content mx-auto">
+      {{ utils.nav_content('index-nav', nav_options) }}
+    </div>
+    <!-- TODO: If the page is too narrow, wrap the buttons but wrap to 2 rows of 2, not a row of 3 and a row of 1. -->
+    <!-- TODO: Re-style the pills. (See Typora notes.) -->
+    <!-- TODO: A bit of a margin at the bottom of the page? -->
+    {{ utils.include_js('main') }}
+  </body>
+</html>

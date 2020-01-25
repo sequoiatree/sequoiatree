@@ -1,0 +1,23 @@
+$serif-font: 'Arapey', serif;
+$sans-serif-font: 'Work Sans', sans-serif;
+$monospace-font: 'Source Code Pro', monospace;
+
+.font-family-serif {
+  font-family: $serif-font;
+}
+
+.font-family-sans-serif {
+  font-family: $sans-serif-font;
+}
+
+.font-family-monospace {
+  font-family: $monospace-font;
+}
+
+.font-size-title {
+  font-size: 60pt;
+}
+
+.font-size-paragraph {
+  font-size: 12.5pt;
+}

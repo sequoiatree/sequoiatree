@@ -1,6 +1,6 @@
 import os
 
-from . import utils
+from . import io
 
 TITLE_FILE_NAME = 'title.txt'
 CONTENT_FILE_NAME = 'content.md'
@@ -17,12 +17,12 @@ class Chapter:
     @property
     def title(self):
         title_path = os.path.join(self.source_path, TITLE_FILE_NAME)
-        return utils.read(title_path)
+        return io.read(title_path)
 
     @property
     def content(self):
         content_path = os.path.join(self.source_path, CONTENT_FILE_NAME)
-        return utils.read(content_path)
+        return io.read(content_path)
 
     def parse(self):
         # os.mkdir(self.target_path)
