@@ -2,6 +2,10 @@ $serif-font: 'Arapey', serif;
 $sans-serif-font: 'Work Sans', sans-serif;
 $monospace-font: 'Source Code Pro', monospace;
 
+$title-font-size: 60pt;
+$clickable-font-size: 13.5pt;
+$paragraph-font-size: 12.5pt;
+
 .font-family-serif {
   font-family: $serif-font;
 }
@@ -15,9 +19,18 @@ $monospace-font: 'Source Code Pro', monospace;
 }
 
 .font-size-title {
-  font-size: 60pt;
+  font-size: $title-font-size;
+}
+
+.font-size-clickable {
+  font-size: $clickable-font-size;
 }
 
 .font-size-paragraph {
-  font-size: 12.5pt;
+  font-size: $paragraph-font-size;
+}
+
+.text-reverse {
+  unicode-bidi: bidi-override;
+  direction: rtl;
 }

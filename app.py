@@ -1,11 +1,8 @@
 import flask
 import jinja2
-import os
 
-from src.packages.parser import io as io
 from src.packages.parser import parse as ps
 
-TEMPLATES_PATH = './templates'
 # SOURCE_CHAPTERS_PATH = './src/chapters'
 # TARGET_CHAPTERS_PATH = './static/chapters'
 
@@ -27,18 +24,15 @@ app.jinja_loader = jinja2.ChoiceLoader([
 # Jinja {% extends 'chapter.html' %} (./static/chapters/{chapter id}/content.html) /
 # HTML (./build)                                                                   <- FrozenFlask
 
-def get_template_content(template_name):
-    return flask.Markup(io.read(os.path.join(TEMPLATES_PATH, f'{template_name}.html')))
-
 @app.route('/')
 def root():
     return flask.render_template(
         'index.html',
         nav_options=[
-            ('about', 'About / Contact', get_template_content('about')),
-            ('textbooks', 'Textbooks', get_template_content('textbooks')),
-            ('pyagram', 'Pyagram', get_template_content('pyagram')),
-            ('publications', 'Publications', get_template_content('publications')),
+            ('about', 'About / Contact', None),
+            ('textbooks', 'Textbooks', None),
+            ('pyagram', 'Pyagram', None),
+            ('publications', 'Publications', None),
         ],
     )
 

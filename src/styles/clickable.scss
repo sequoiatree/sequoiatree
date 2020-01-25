@@ -1,11 +1,17 @@
 @import 'colors';
+@import 'text';
 
 $accent-width: 2px;
+$clickable-radius: 23px;
 
 @mixin clickable() {
   color: black;
+  font-size: $clickable-font-size;
   background: $secondary-color;
   border: solid $accent-width $primary-color;
-  border-radius: 100vw;
+  border-radius: $clickable-radius;
   transition: 1.0s;
+  &:hover, &.active {
+    background: white;
+  }
 }

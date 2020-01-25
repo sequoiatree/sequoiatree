@@ -6,14 +6,14 @@
   <script type="text/javascript" src="{{ url_for('static', filename='scripts/{}.js'.format(file)) }}"></script>
 {% endmacro %}
 
-{% macro nav(nav_id, options) %}
+{% macro nav(id, options) %}
   <div class="sticky-top bg-white">
     <hr/>
     <div class="page-content mx-auto">
-      <nav class="nav nav-pills nav-justified align-items-stretch" id="{{ nav_id }}" role="tablist">
+      <nav class="nav nav-pills nav-justified align-items-stretch" id="{{ id }}" role="tablist">
         {% for i in range(options|length) %}
           {% set option_id, option_label, option_content = options[i] %}
-          <a class="nav-item nav-link d-flex justify-content-center align-items-center m-1 text-uppercase font-family-serif {% if i == 0 %} active {% endif %}" id="{{ nav_id }}-option-{{ option_id }}" data-toggle="pill" href="#{{ option_id }}" role="tab" aria-controls="{{ option_id }}" aria-selected="{% if i == 0 %} true {% else %} false {% endif %}">{{ option_label }}</a>
+          <a class="nav-item nav-link d-flex justify-content-center align-items-center m-1 text-uppercase font-family-serif {% if i == 0 %} active {% endif %}" id="{{ id }}-option-{{ option_id }}" data-toggle="pill" href="#{{ option_id }}" role="tab" aria-controls="{{ option_id }}" aria-selected="{% if i == 0 %} true {% else %} false {% endif %}">{{ option_label }}</a>
         {% endfor %}
       </nav>
     </div>
@@ -21,13 +21,23 @@
   </div>
 {% endmacro %}
 
-{% macro nav_content(nav_id, options) %}
-  <div class="tab-content" id="{{ nav_id }}-content">
+{% macro nav_content(id, options) %}
+  <div class="tab-content" id="{{ id }}-content">
     {% for i in range(options|length) %}
       {% set option_id, option_label, option_content = options[i] %}
-      <div class="tab-pane {% if i == 0 %} active {% endif %}" id="{{ option_id }}" role="tabpanel" aria-labelledby="{{ nav_id }}-option-{{ option_id }}">
-        {{ option_content }}
+      <div class="tab-pane {% if i == 0 %} active {% endif %}" id="{{ option_id }}" role="tabpanel" aria-labelledby="{{ id }}-option-{{ option_id }}">
+        {% if option_content is none %}
+          {% include '{}.html'.format(option_id) %}
+        {% else %}
+          {{ option_content }}
+        {% endif %}
       </div>
     {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro button(id, label, reverse=False) %}
+  <div class="d-flex flex-row flex-wrap justify-content-center my-3">
+    <a class="button px-3 py-2 {% if reverse %} text-reverse {% endif %} text-uppercase font-family-serif" id="{{ id }}">{{ label }}</a>
   </div>
 {% endmacro %}
