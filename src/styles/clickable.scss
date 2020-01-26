@@ -12,6 +12,10 @@ $clickable-radius: 23px;
   border-radius: $clickable-radius;
   transition: 1.0s;
   &:hover, &.active {
-    background: white;
+    @include active-clickable();
   }
+}
+
+@mixin active-clickable() {
+  background: white;
 }

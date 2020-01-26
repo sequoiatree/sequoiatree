@@ -6,9 +6,12 @@ def read(file_path):
         content = file.read()
     return content
 
-def write(file_path, *args, **kwargs):
+def write(file_path, content):
     with open(file_path, 'w') as file:
-        file.write(*args, **kwargs)
+        file.write(content)
+
+def copy(source_file_path, target_file_path):
+    shutil.copyfile(source_file_path, target_file_path)
 
 def clear_dir(dir_path):
     for fsobj_name in os.listdir(dir_path):

@@ -10,10 +10,10 @@
   <div class="sticky-top bg-white">
     <hr/>
     <div class="page-content mx-auto">
-      <nav class="nav nav-pills nav-justified align-items-stretch" id="{{ id }}" role="tablist">
+      <nav class="nav nav-pills nav-justified align-items-stretch" id="{{ id }}-nav" role="tablist">
         {% for i in range(options|length) %}
-          {% set option_id, option_label, option_content = options[i] %}
-          <a class="nav-item nav-link d-flex justify-content-center align-items-center m-1 text-uppercase font-family-serif {% if i == 0 %} active {% endif %}" id="{{ id }}-option-{{ option_id }}" data-toggle="pill" href="#{{ option_id }}" role="tab" aria-controls="{{ option_id }}" aria-selected="{% if i == 0 %} true {% else %} false {% endif %}">{{ option_label }}</a>
+          {% set option_id, option_label, option_encoding, option_context = options[i] %}
+          <a class="nav-item nav-link d-flex justify-content-center align-items-center m-1 px-3 py-2 text-uppercase font-family-serif {% if i == 0 %} active {% endif %}" id="{{ id }}-nav-option-{{ option_id }}" data-toggle="pill" href="#{{ id }}-nav-content-{{ option_id }}" role="tab" aria-controls="{{ id }}-nav-content-{{ option_id }}" aria-selected="{% if i == 0 %} true {% else %} false {% endif %}">{{ option_label }}</a>
         {% endfor %}
       </nav>
     </div>
@@ -22,22 +22,46 @@
 {% endmacro %}
 
 {% macro nav_content(id, options) %}
-  <div class="tab-content" id="{{ id }}-content">
+  <div class="tab-content" id="{{ id }}-nav-content">
     {% for i in range(options|length) %}
-      {% set option_id, option_label, option_content = options[i] %}
-      <div class="tab-pane {% if i == 0 %} active {% endif %}" id="{{ option_id }}" role="tabpanel" aria-labelledby="{{ id }}-option-{{ option_id }}">
-        {% if option_content is none %}
-          {% include '{}.html'.format(option_id) %}
-        {% else %}
-          {{ option_content }}
-        {% endif %}
+      {% set option_id, option_label, option_encoding, option_context = options[i] %}
+      <div class="tab-pane {% if i == 0 %} active {% endif %}" id="{{ id }}-nav-content-{{ option_id }}" role="tabpanel" aria-labelledby="{{ id }}-nav-option-{{ option_id }}">
+        {{ decode_content(option_id, option_encoding, option_context) }}
       </div>
     {% endfor %}
   </div>
 {% endmacro %}
 
+{% macro accordion(id, options) %}
+  <div id="{{ id }}-accordion">
+    {% for i in range(options|length) %}
+      {% set option_id, option_label, option_encoding, option_context = options[i] %}
+      <div class="d-flex flex-row accordion-option-wrapper mt-3 mb-0 collapsed" id="{{ id }}-accordion-option-{{ option_id }}" data-toggle="collapse" data-target="#{{ id }}-accordion-content-{{ option_id }}" aria-expanded="false" aria-controls="{{ id }}-accordion-content-{{ option_id }}">
+        <a class="accordion-option flex-fill mx-1 px-3 py-2 text-uppercase font-family-serif">{{ option_label }}</a>
+      </div>
+      <div id="{{ id }}-accordion-content-{{ option_id }}" class="collapse" aria-labelledby="{{ id }}-accordion-option-{{ option_id }}" data-parent="#{{ id }}-accordion">
+        <div class="accordion-content ml-4 pt-3 pl-3">
+          {{ decode_content(option_id, option_encoding, option_context) }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro decode_content(id, encoding, context) %}
+  {% if encoding == 'template' %}
+    {% include '{}.html'.format(id) %}
+  {% elif encoding == 'textbook-parts' %}
+    TODO: Render headings (Part I: Blah, Part II: Blah, etc.) and chapter URLs.
+  {% elif encoding == 'html' %}
+    {{ context|safe }}
+  {% elif encoding == 'text' %}
+    {{ context }}
+  {% endif %}
+{% endmacro %}
+
 {% macro button(id, label, reverse=False) %}
-  <div class="d-flex flex-row flex-wrap justify-content-center my-3">
-    <a class="button px-3 py-2 {% if reverse %} text-reverse {% endif %} text-uppercase font-family-serif" id="{{ id }}">{{ label }}</a>
+  <div class="d-flex flex-row justify-content-center my-3">
+    <a class="button mx-1 px-3 py-2 {% if reverse %} text-reverse {% endif %} text-uppercase font-family-serif" id="{{ id }}">{{ label }}</a>
   </div>
 {% endmacro %}

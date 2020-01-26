@@ -1,9 +1,7 @@
 {
   "scripts": {
     "watch-js": "webpack --progress --watch",
-    "watch-css": "sass --watch ./src/styles:./static/styles",
-    "parse-new": "python ./src/packages/parser/parse.py ./src/chapters ./static/chapters True",
-    "parse-all": "python ./src/packages/parser/parse.py ./src/chapters ./static/chapters False"
+    "watch-css": "sass --watch ./src/styles:./static/styles"
   },
   "dependencies": {},
   "devDependencies": {
