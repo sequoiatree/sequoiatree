@@ -1,44 +1,21 @@
 import flask
 import jinja2
+import os
 import sys
 
 from src.packages.chapter_parser import parse_chapters as pc
-from src.packages.textbooks import textbooks as tb
+from src.packages.books import books as bk
 
-SOURCE_CHAPTERS_PATH = './src/packages/textbooks/chapters'
+SOURCE_CHAPTERS_PATH = './src/packages/books/chapters'
 TARGET_CHAPTERS_PATH = './static/chapters'
 
-app = flask.Flask(__name__)
+def rename(name):
+    def rename_decorator(function):
+        function.__name__ = name
+        return function
+    return rename_decorator
 
-app.jinja_loader = jinja2.ChoiceLoader([
-    app.jinja_loader,
-    # jinja2.FileSystemLoader([
-    #     ?
-    #     for chapter in pc.get_chapters(SOURCE_CHAPTERS_PATH, TARGET_CHAPTERS_PATH, False),
-    # ]),
-])
-
-# TODO: Figure out how to get a set of Chapter objects from the parser package into this file.
-
-# TODO: Typora -> Markdown -> Jinja {% extends 'chapter.html' %} -> HTML
-# Typora (./src/chapters/{chapter id}/content.md)                                   \
-# Markdown (RAM)                                                                    | This packagae
-# Jinja {% extends 'chapter.html' %} (./static/chapters/{chapter id}/content.html) /
-# HTML (./build)                                                                   <- FrozenFlask
-
-@app.route('/')
-def root():
-    return flask.render_template(
-        'index.html',
-        nav_options=[
-            ('about', 'About / Contact', 'template', None),
-            ('textbooks', 'Textbooks', 'template', tb.textbooks),
-            ('pyagram', 'Pyagram', 'template', None),
-            ('publications', 'Publications', 'template', None),
-        ],
-    )
-
-if __name__ == '__main__':
+def parse_chapters():
     if len(sys.argv) == 1:
         pass
     elif len(sys.argv) == 2:
@@ -52,4 +29,41 @@ if __name__ == '__main__':
         pc.parse_chapters(SOURCE_CHAPTERS_PATH, TARGET_CHAPTERS_PATH, lazy_parsing_enabled)
     else:
         assert False
+
+def render_endpoints():
+    render_root()
+    for chapter in pc.get_chapters(SOURCE_CHAPTERS_PATH, TARGET_CHAPTERS_PATH, False):
+        render_chapter(chapter)
+
+def render_root():
+    @app.route('/')
+    def root_renderer():
+        return flask.render_template(
+            'index.html',
+            nav_options=[
+                ('about', 'About / Contact', 'template', None),
+                ('textbooks', 'Textbooks', 'template', bk.books),
+                ('pyagram', 'Pyagram', 'template', None),
+                ('publications', 'Publications', 'template', None),
+            ],
+        )
+
+def render_chapter(chapter):
+    @app.route(f'/{chapter.id}')
+    @rename(f'chapter_renderer:{chapter.id}')
+    def chapter_renderer():
+        return flask.render_template(
+            chapter.target_file_name,
+        )
+
+if __name__ == '__main__':
+    parse_chapters()
+    app = flask.Flask(__name__)
+    app.jinja_loader = jinja2.ChoiceLoader([
+        app.jinja_loader,
+        jinja2.FileSystemLoader([
+            TARGET_CHAPTERS_PATH,
+        ]),
+    ])
+    render_endpoints()
     app.run()

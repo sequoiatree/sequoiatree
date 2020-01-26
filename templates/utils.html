@@ -33,7 +33,7 @@
 {% endmacro %}
 
 {% macro accordion(id, options) %}
-  <div id="{{ id }}-accordion">
+  <div class="mb-3" id="{{ id }}-accordion">
     {% for i in range(options|length) %}
       {% set option_id, option_label, option_encoding, option_context = options[i] %}
       <div class="d-flex flex-row accordion-option-wrapper mt-3 mb-0 collapsed" id="{{ id }}-accordion-option-{{ option_id }}" data-toggle="collapse" data-target="#{{ id }}-accordion-content-{{ option_id }}" aria-expanded="false" aria-controls="{{ id }}-accordion-content-{{ option_id }}">
@@ -51,8 +51,15 @@
 {% macro decode_content(id, encoding, context) %}
   {% if encoding == 'template' %}
     {% include '{}.html'.format(id) %}
-  {% elif encoding == 'textbook-parts' %}
-    TODO: Render headings (Part I: Blah, Part II: Blah, etc.) and chapter URLs.
+  {% elif encoding == 'textbook' %}
+    {% for part_title, chapters in context.items() %}
+      {{ part_title }} TODO
+      {% for chapter in chapters %}
+        TODO
+      {% endfor %}
+    {% endfor %}
+  {% elif encoding == 'handbook' %}
+    TODO
   {% elif encoding == 'html' %}
     {{ context|safe }}
   {% elif encoding == 'text' %}
@@ -60,8 +67,8 @@
   {% endif %}
 {% endmacro %}
 
-{% macro button(id, label, reverse=False) %}
+{% macro button(id, label, href=None, reverse=False) %}
   <div class="d-flex flex-row justify-content-center my-3">
-    <a class="button mx-1 px-3 py-2 {% if reverse %} text-reverse {% endif %} text-uppercase font-family-serif" id="{{ id }}">{{ label }}</a>
+    <a class="button mx-1 px-3 py-2 {% if reverse %} text-reverse {% endif %} text-uppercase font-family-serif" id="{{ id }}" {% if href is not none %} href="{{ href }}" {% endif %}>{{ label }}</a>
   </div>
 {% endmacro %}

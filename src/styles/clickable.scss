@@ -6,6 +6,7 @@ $clickable-radius: 23px;
 
 @mixin clickable() {
   color: black;
+  text-decoration: none;
   font-size: $clickable-font-size;
   background: $secondary-color;
   border: solid $accent-width $primary-color;
@@ -17,5 +18,7 @@ $clickable-radius: 23px;
 }
 
 @mixin active-clickable() {
+  color: black;
+  text-decoration: none;
   background: white;
 }

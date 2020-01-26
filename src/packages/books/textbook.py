@@ -1,3 +1,5 @@
+from . import utils
+
 class Textbook:
     """
     """
@@ -13,8 +15,8 @@ class Textbook:
         :return:
         """
         return iter((
-            self.title.replace(' ', '-'),
+            utils.kebab_case(self.title),
             self.title,
-            'textbook-parts',
+            'textbook',
             self.parts,
         ))

@@ -10,9 +10,6 @@ def write(file_path, content):
     with open(file_path, 'w') as file:
         file.write(content)
 
-def copy(source_file_path, target_file_path):
-    shutil.copyfile(source_file_path, target_file_path)
-
 def clear_dir(dir_path):
     for fsobj_name in os.listdir(dir_path):
         fsobj_path = os.path.join(dir_path, fsobj_name)
@@ -22,3 +19,6 @@ def clear_dir(dir_path):
             shutil.rmtree(fsobj_path)
         else:
             assert False
+
+def kebab_case(text):
+    return text.lower().replace(' ', '-')

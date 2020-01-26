@@ -3,8 +3,8 @@
 <div class="text-justify">
   I'm a teacher at heart and a researcher by trade. I write textbooks, develop educational technology, explore new techniques in reinforcement learning, advocate for diversity and inclusivity in the computer science community, and obsessively optimize every little thing in my life. In my spare time I run the Berkeley fire trails, explore the Bay Area, and draw candid portraits for people I meet.
 </div>
-{{ utils.button('curriculum-vitae', 'Curriculum Vitae') }}
+{{ utils.button('curriculum-vitae', 'Curriculum Vitae', url_for('static', filename='curriculum-vitae.pdf')) }}
 <div class="text-justify">
   Let's be friends! Don't hesitate to get in touch, whether you want to chat about education, pick my brain on computer science, request a portrait sketch of yourself, or just hang out.
 </div>
-{{ utils.button('email', 'ude.yelekreb@aiouqes', True)}}
+{{ utils.button('email', 'ude.yelekreb@aiouqes', reverse=True)}}
