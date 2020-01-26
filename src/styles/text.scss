@@ -2,7 +2,10 @@ $serif-font: 'Arapey', serif;
 $sans-serif-font: 'Work Sans', sans-serif;
 $monospace-font: 'Source Code Pro', monospace;
 
-$title-font-size: 60pt;
+$title-font-size: 60.0pt;
+$section-font-size: 30.0pt;
+$subsection-font-size: 24.0pt;
+$subsubsection-font-size: 18.0pt;
 $clickable-font-size: 13.5pt;
 $paragraph-font-size: 12.5pt;
 
@@ -20,6 +23,18 @@ $paragraph-font-size: 12.5pt;
 
 .font-size-title {
   font-size: $title-font-size;
+}
+
+.font-size-section {
+  font-size: $section-font-size;
+}
+
+.font-size-subsection {
+  font-size: $subsection-font-size;
+}
+
+.font-size-subsubsection {
+  font-size: $subsubsection-font-size;
 }
 
 .font-size-clickable {

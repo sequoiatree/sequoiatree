@@ -10,4 +10,7 @@
 
 .accordion-content {
   border-left: solid $accent-width $primary-color;
+  & > :first-child {
+    margin-top: 0 !important;
+  }
 }
