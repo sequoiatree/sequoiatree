@@ -6,15 +6,17 @@ from . import utils
 def parse_chapters(source_chapters_path, target_chapters_path, lazy_parsing_enabled):
     if not lazy_parsing_enabled:
         utils.clear_dir(target_chapters_path)
-    chapters_to_parse = get_chapters(source_chapters_path, target_chapters_path, lazy_parsing_enabled)
+    chapters_to_parse, chapter_titles = get_chapters(source_chapters_path, target_chapters_path, lazy_parsing_enabled)
     for chapter_to_parse in chapters_to_parse:
         chapter_to_parse.parse()
 
 def get_chapters(source_chapters_path, target_chapters_path, only_new_chapters):
     source_chapter_names = os.listdir(source_chapters_path)
     parsed_chapter_names = os.listdir(target_chapters_path)
+    chapter_titles = {}
     chapters = {
         chapter.Chapter(
+            chapter_titles,
             source_chapter_name,
             source_chapters_path,
             target_chapters_path,
@@ -24,4 +26,4 @@ def get_chapters(source_chapters_path, target_chapters_path, only_new_chapters):
     for chapter_obj in chapters:
         if only_new_chapters and chapter_obj.target_file_name in parsed_chapter_names:
             chapters.remove(chapter_obj)
-    return chapters
+    return chapters, chapter_titles

@@ -1,3 +1,5 @@
+@import 'colors';
+
 $serif-font: 'Arapey', serif;
 $sans-serif-font: 'Work Sans', sans-serif;
 $monospace-font: 'Source Code Pro', monospace;
@@ -8,6 +10,11 @@ $subsection-font-size: 24.0pt;
 $subsubsection-font-size: 18.0pt;
 $clickable-font-size: 13.5pt;
 $paragraph-font-size: 12.5pt;
+
+a, a:hover {
+  color: $primary-color;
+  text-decoration: none;
+}
 
 .font-family-serif {
   font-family: $serif-font;

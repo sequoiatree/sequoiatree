@@ -12,10 +12,11 @@ class Chapter:
     """
     """
 
-    def __init__(self, source_chapter_name, source_chapters_path, target_chapters_path):
+    def __init__(self, chapter_titles, source_chapter_name, source_chapters_path, target_chapters_path):
         match = re.fullmatch(rf'(.+)\.{SOURCE_EXT}', source_chapter_name)
         self.title = match[1]
         self.id = utils.kebab_case(self.title)
+        chapter_titles[self.id] = self.title
         self.source_path = os.path.join(source_chapters_path, self.source_file_name)
         self.target_path = os.path.join(target_chapters_path, self.target_file_name)
 

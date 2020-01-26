@@ -31,11 +31,12 @@ def parse_chapters():
         assert False
 
 def render_endpoints():
-    render_root()
-    for chapter in pc.get_chapters(SOURCE_CHAPTERS_PATH, TARGET_CHAPTERS_PATH, False):
+    chapters, chapter_titles = pc.get_chapters(SOURCE_CHAPTERS_PATH, TARGET_CHAPTERS_PATH, False)
+    render_root(chapter_titles)
+    for chapter in chapters:
         render_chapter(chapter)
 
-def render_root():
+def render_root(chapter_titles):
     @app.route('/')
     def root_renderer():
         return flask.render_template(
@@ -46,6 +47,7 @@ def render_root():
                 ('pyagram', 'Pyagram', 'template', None),
                 ('publications', 'Publications', 'template', None),
             ],
+            chapter_titles=chapter_titles,
         )
 
 def render_chapter(chapter):

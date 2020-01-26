@@ -7,9 +7,9 @@
 {% endmacro %}
 
 {% macro nav(id, options) %}
+  <hr class="mb-0">
   <div class="sticky-top bg-white">
-    <hr/>
-    <div class="page-content mx-auto">
+    <div class="page-content mx-auto py-3">
       <nav class="nav nav-pills nav-justified align-items-stretch" id="{{ id }}-nav" role="tablist">
         {% for i in range(options|length) %}
           {% set option_id, option_label, option_encoding, option_context = options[i] %}
@@ -17,7 +17,7 @@
         {% endfor %}
       </nav>
     </div>
-    <hr/>
+    <hr class="mt-0">
   </div>
 {% endmacro %}
 
@@ -26,7 +26,7 @@
     {% for i in range(options|length) %}
       {% set option_id, option_label, option_encoding, option_context = options[i] %}
       <div class="tab-pane {% if i == 0 %} active {% endif %}" id="{{ id }}-nav-content-{{ option_id }}" role="tabpanel" aria-labelledby="{{ id }}-nav-option-{{ option_id }}">
-        {{ decode_content(option_id, option_encoding, option_context) }}
+        {{ decode_content(option_id, option_encoding, option_context, **kwargs) }}
       </div>
     {% endfor %}
   </div>
@@ -40,8 +40,8 @@
         <a class="accordion-option flex-fill mx-1 px-3 py-2 text-uppercase font-family-serif">{{ option_label }}</a>
       </div>
       <div id="{{ id }}-accordion-content-{{ option_id }}" class="collapse" aria-labelledby="{{ id }}-accordion-option-{{ option_id }}" data-parent="#{{ id }}-accordion">
-        <div class="accordion-content ml-4 pt-3 pl-3">
-          {{ decode_content(option_id, option_encoding, option_context) }}
+        <div class="accordion-content ml-4 py-3 pl-3">
+          {{ decode_content(option_id, option_encoding, option_context, **kwargs) }}
         </div>
       </div>
     {% endfor %}
@@ -55,11 +55,17 @@
     {% for part_title, chapters in context.items() %}
       {{ section(3, part_title, False) }}
       {% for chapter in chapters %}
-        TODO
+        <div class="my-2">
+          <a href="{{ url_for('chapter_renderer:{}'.format(chapter)) }}">{{ kwargs['chapter_titles'][chapter] }}</a>
+        </div>
       {% endfor %}
     {% endfor %}
   {% elif encoding == 'handbook' %}
-    TODO
+    {% for chapter in context %}
+      <div class="my-2">
+        <a href="{{ url_for('chapter_renderer:{}'.format(chapter)) }}">{{ kwargs['chapter_titles'][chapter] }}</a>
+      </div>
+    {% endfor %}
   {% elif encoding == 'html' %}
     {{ context|safe }}
   {% elif encoding == 'text' %}
