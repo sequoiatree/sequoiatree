@@ -33,12 +33,13 @@ def parse_chapters():
 def render_endpoints():
     chapters, chapter_titles = pc.get_chapters(SOURCE_CHAPTERS_PATH, TARGET_CHAPTERS_PATH, False)
     render_root(chapter_titles)
+    render_page_not_found()
     for chapter in chapters:
         render_chapter(chapter)
 
 def render_root(chapter_titles):
     @app.route('/')
-    def root_renderer():
+    def root():
         return flask.render_template(
             'index.html',
             nav_options=[
@@ -50,13 +51,16 @@ def render_root(chapter_titles):
             chapter_titles=chapter_titles,
         )
 
-def render_chapter(chapter):
-    @app.route(f'/{chapter.id}')
-    @rename(f'chapter_renderer:{chapter.id}')
-    def chapter_renderer():
-        return flask.render_template(
-            chapter.target_file_name,
-        )
+def render_page_not_found():
+    @app.errorhandler(404)
+    def page_not_found(exception):
+        return flask.redirect(flask.url_for('root'))
+
+def render_chapter(chapter_obj):
+    @app.route(f'/{chapter_obj.id}')
+    @rename(f'chapter:{chapter_obj.id}')
+    def chapter():
+        return flask.render_template(chapter_obj.target_file_name)
 
 if __name__ == '__main__':
     parse_chapters()

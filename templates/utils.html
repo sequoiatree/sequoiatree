@@ -56,14 +56,14 @@
       {{ section(3, part_title, False) }}
       {% for chapter in chapters %}
         <div class="my-2">
-          <a href="{{ url_for('chapter_renderer:{}'.format(chapter)) }}">{{ kwargs['chapter_titles'][chapter] }}</a>
+          <a href="{{ url_for('chapter:{}'.format(chapter)) }}">{{ kwargs['chapter_titles'][chapter] }}</a>
         </div>
       {% endfor %}
     {% endfor %}
   {% elif encoding == 'handbook' %}
     {% for chapter in context %}
       <div class="my-2">
-        <a href="{{ url_for('chapter_renderer:{}'.format(chapter)) }}">{{ kwargs['chapter_titles'][chapter] }}</a>
+        <a href="{{ url_for('chapter:{}'.format(chapter)) }}">{{ kwargs['chapter_titles'][chapter] }}</a>
       </div>
     {% endfor %}
   {% elif encoding == 'html' %}
