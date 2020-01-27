@@ -1,6 +1,9 @@
 # Meta
 .vscode/
 
+# Build
+build/
+
 # Front-end
 node_modules/
 static/styles/*

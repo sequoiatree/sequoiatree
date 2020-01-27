@@ -12,7 +12,7 @@ todo
   * `python app.py parse-new` to parse new chapters, then run the app
   * `python app.py parse-all` to parse all chapters, then run the app
   * `python app.py` to run the flask app
-  * ??? to freeze the flask app and put the build files in `./build`
+  * `python app.py build` to freeze the flask app and put the build files in `./build`
 
 todo todo todo todo todo todo todo todo
 

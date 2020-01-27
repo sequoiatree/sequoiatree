@@ -6,35 +6,40 @@ books = {
         textbook.Textbook(
             'Fundamental Computer Science',
             {
-                'name of part one': [
+                'Part I: Lorem Ipsum': [
                     'welcome-to-computer-science',
-                    'the-terminal',
+                    'setup',
                 ],
-                'name of part two': [
-                    'the-terminal',
+                'Part II: Dolor Sit Amet': [
+                    'variables',
+                    'functions',
+                    'booleans',
+                    'iteration',
+                    'higher-order-functions',
+                    'lambda-functions',
+                    'recursion',
+                    'counting-problems',
+                    'objects',
+                    'orders-of-growth',
+                    'iterators-and-generators',
+                    'scheme',
                 ],
             },
         ),
         textbook.Textbook(
-            'A Fake Textbook',
+            'Relational Databases',
             {
-                'name of this part one': [
-                    'the-terminal',
-                ],
-                'name of this part two': [
-                    'welcome-to-computer-science',
-                    'the-terminal',
+                'Part I: Lorem Ipsum': [
+                    'sql:-data-manipulation',
                 ],
             },
         ),
     ],
     'handbooks': [
         handbook.Handbook(
-            'A Fake Handbook',
+            'Lorem Ipsum',
             [
-                'the-terminal',
                 'welcome-to-computer-science',
-                'the-terminal',
             ],
         ),
     ],
