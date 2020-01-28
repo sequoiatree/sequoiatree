@@ -16,14 +16,14 @@ def rename(name):
         return function
     return rename_decorator
 
-def render_endpoints():
+def render_endpoints(app):
     chapters, chapter_titles = pc.get_chapters(SOURCE_CHAPTERS_PATH, TARGET_CHAPTERS_PATH, False)
-    render_root(chapter_titles)
-    render_page_not_found()
+    render_root(app, chapter_titles)
+    render_page_not_found(app)
     for chapter in chapters:
-        render_chapter(chapter)
+        render_chapter(app, chapter)
 
-def render_root(chapter_titles):
+def render_root(app, chapter_titles):
     @app.route('/')
     def root():
         return flask.render_template(
@@ -37,12 +37,12 @@ def render_root(chapter_titles):
             chapter_titles=chapter_titles,
         )
 
-def render_page_not_found():
+def render_page_not_found(app):
     @app.errorhandler(404)
     def page_not_found(exception):
         return flask.redirect(flask.url_for('root'))
 
-def render_chapter(chapter_obj):
+def render_chapter(app, chapter_obj):
     @app.route(f'/{chapter_obj.target_file_name}')
     @rename(f'chapter:{chapter_obj.id}')
     def chapter():
@@ -72,7 +72,7 @@ if __name__ == '__main__':
             assert False
     else:
         assert False
-    render_endpoints()
+    render_endpoints(app)
     if freeze_app:
         freezer = flask_frozen.Freezer(app)
         freezer.freeze()

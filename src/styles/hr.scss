@@ -1,5 +1,5 @@
 @import 'clickable';
 
 hr {
-  border-top-width: $accent-width;
+  border-top: solid $accent-width $secondary-color;
 }
