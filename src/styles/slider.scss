@@ -17,15 +17,10 @@ $slider-height: 10px;
 
 input[type=range] {
   -webkit-appearance: none;
-  &::-webkit-slider-runnable-track {
-    @include slider-track();
-  }
+  @include slider-track();
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
     @include slider-thumb();
-  }
-  &::-moz-range-track {
-    @include slider-track();
   }
   &::-moz-range-thumb {
     @include slider-thumb();
@@ -34,7 +29,6 @@ input[type=range] {
     border: 0;
   }
   &::-ms-track {
-    @include slider-track();
     border-width: ($slider-height / 2 + $accent-width) 0;
     border-color: transparent;
     color: transparent;
