@@ -30,7 +30,7 @@ books = {
             'Relational Databases',
             {
                 'Part I: Lorem Ipsum': [
-                    'sql:-data-manipulation',
+                    'sql-data-manipulation',
                 ],
             },
         ),
